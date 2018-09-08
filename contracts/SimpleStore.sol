@@ -3,6 +3,7 @@ pragma solidity ^0.4.22;
 contract SimpleStore {
     uint256 value;
 
+    mapping(address => mapping(string => uint)) weapon_db;
     event GetTest(string _state, uint256 _rank, address _sender);
     event NewValueSet(uint256 indexed _value, address _sender);
     event NewValueSetAgain(uint256 indexed _value, address _sender);
@@ -25,6 +26,16 @@ contract SimpleStore {
         //emit GetTest("A", uint2str(_blank), msg.sender);
         emit GetTest("A", _blank, msg.sender);
     }
+
+    function acquireWeapon(string _weapon) public returns (uint256){
+        uint256 result = weapon_db[msg.sender][_weapon]++;
+        return result;
+    }
+
+    function getWeaponList(string _weapon) public view returns (uint256){
+        return weapon_db[msg.sender][_weapon];
+    }
+    
 
     function uint2str(uint i) internal pure returns (string){
         if (i == 0) return "0";
