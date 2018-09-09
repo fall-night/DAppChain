@@ -43,7 +43,7 @@ contract SimpleStore {
     function Ready(uint256 _state) public {
         intToAddress[userIndex] = msg.sender;
         userIndex++;
-        if (userIndex == 2) emit StartGame(intToAddress[0], intToAddress[1]);// , intToAddress[2]);
+        if (userIndex >= 2) emit StartGame(intToAddress[0], intToAddress[1]);// , intToAddress[2]);
     }
     
 
