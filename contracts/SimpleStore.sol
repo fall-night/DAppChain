@@ -7,6 +7,7 @@ contract SimpleStore {
     event GetTest(string _state, uint256 _rank, address _sender);
     event NewValueSet(uint256 indexed _value, address _sender);
     event NewValueSetAgain(uint256 indexed _value, address _sender);
+    event StartGame(address user1, address user2);//, address user3);
 
     function set(uint256 _value) public {
         value = _value;
@@ -34,6 +35,15 @@ contract SimpleStore {
 
     function getWeaponList(string _weapon) public view returns (uint256){
         return weapon_db[msg.sender][_weapon];
+    }
+
+    mapping(uint256 => address) intToAddress;
+    uint256 userIndex;
+
+    function Ready(uint256 _state) public {
+        intToAddress[userIndex] = msg.sender;
+        userIndex++;
+        if (userIndex == 2) emit StartGame(intToAddress[0], intToAddress[1]);// , intToAddress[2]);
     }
     
 
